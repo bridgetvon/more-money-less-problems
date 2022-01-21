@@ -1,4 +1,3 @@
-// const APP_PREFIX = 'BudgetTracker-';
 const VERSION = 'version_01';
 const CACHE_NAME = 'data-cache-v1';
 
@@ -46,24 +45,24 @@ self.addEventListener('activate', function(e) {
 
 //intercept fetch request 
 self.addEventListener('fetch', (evt) => {
-    if (evt.request.url.includes('/api/')) {
-        evt.respondWith(
+    if (e.request.url.includes('/api/')) {
+        e.respondWith(
             caches
               .open(CACHE_NAME)
               .then(cache => {
-                return fetch(evt.request)
+                return fetch(e.request)
                   .then(response => {
                     if (response.status === 200) {
                         //response.clone can only be used once to we clone it so it can be used later 
                       const responseClone = response.clone();
-                      cache.put(evt.request.url, responseClone);
+                      cache.put(e.request.url, responseClone);
                     }
       
                     return response;
                   })
                   .catch(err => {
                     // Network request failed, try to get it from the cache.
-                    return cache.match(evt.request);
+                    return cache.match(e.request);
                   });
               })
               .catch(err => console.log(err))
@@ -72,12 +71,12 @@ self.addEventListener('fetch', (evt) => {
           return;
         }
     
-        evt.respondWith(
-            fetch(evt.request).catch(function () {
-                return caches.match(evt.request).then(function(response){
+        e.respondWith(
+            fetch(e.request).catch(function () {
+                return caches.match(e.request).then(function(response){
                     if (response) {
                         return response;
-                    } else if (evt.request.headers.get('accept').includes('text.html')) {
+                    } else if (e.request.headers.get('accept').includes('text.html')) {
                         return caches.match('/');
                     }
                 });
