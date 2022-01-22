@@ -8,10 +8,13 @@
   * [Usage Instructions](#Usage-Instructions)
   * [Contributing](#Contributing)
 
-  # Visual 
-    <img src="./public/images/web.png">
-    <img src="./public/images/PWA.png">
-    <img src="./public/images/PWAicon.png">
+  # Visual
+
+<img src="./public/images/web.png">
+
+<img src="./public/images/PWA.png">
+
+<img src="./public/images/PWAicon.png">
  
   # Description
  ```
